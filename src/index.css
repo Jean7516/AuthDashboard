@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  /* Scrollbar refinada */
+  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-500; }
+}
+
+@layer components {
+  /* Input base */
+  .input-base {
+    @apply w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2
+           text-sm text-slate-100 placeholder-slate-500
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
+           transition-all duration-150;
+  }
+
+  /* Botón primario */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-brand-600 hover:bg-brand-500 active:bg-brand-700
+           text-white text-sm font-medium
+           px-4 py-2 rounded-lg
+           transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-slate-950
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Botón ghost */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           bg-transparent hover:bg-slate-800 active:bg-slate-700
+           text-slate-400 hover:text-slate-100
+           text-sm font-medium
+           px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-600
+           transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-slate-500;
+  }
+
+  /* Botón icono */
+  .btn-icon {
+    @apply inline-flex items-center justify-center
+           w-8 h-8 rounded-lg
+           text-slate-400 hover:text-slate-100
+           bg-transparent hover:bg-slate-800
+           border border-transparent hover:border-slate-700
+           transition-all duration-150;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-slate-900 border border-slate-800 rounded-xl;
+  }
+
+  /* Badge de rol */
+  .badge-superadmin { @apply text-xs px-2 py-0.5 rounded-md bg-violet-500/15 text-violet-300 font-medium; }
+  .badge-admin      { @apply text-xs px-2 py-0.5 rounded-md bg-blue-500/15   text-blue-300   font-medium; }
+  .badge-viewer     { @apply text-xs px-2 py-0.5 rounded-md bg-slate-500/20  text-slate-400  font-medium; }
+
+  /* Estado activo/inactivo */
+  .status-active   { @apply text-xs px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 font-medium; }
+  .status-inactive { @apply text-xs px-2 py-0.5 rounded-md bg-slate-500/20  text-slate-500  font-medium; }
+}
