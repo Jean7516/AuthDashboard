@@ -17,13 +17,13 @@ export default function StatCard({ label, value, sub, trend, icon: Icon, iconCol
         <Icon size={18} aria-hidden />
       </div>
       <div className="min-w-0">
-        <p className="text-xs text-slate-500 font-medium mb-1">{label}</p>
-        <p className="text-2xl font-bold text-slate-100 tabular-nums">{value}</p>
+        <p className="text-xs text-slate-700 font-medium mb-1">{label}</p>
+        <p className="text-2xl font-bold text-slate-500 tabular-nums">{value}</p>
         {sub && (
           <p className={cn(
             'text-xs mt-1',
-            trend === 'up' && 'text-emerald-400',
-            trend === 'down' && 'text-red-400',
+            trend === 'up' && 'text-emerald-500',
+            trend === 'down' && 'text-red-500',
             trend === 'neutral' && 'text-slate-500',
           )}>
             {sub}

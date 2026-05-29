@@ -3,27 +3,20 @@ import { useAuthStore } from '@/store/authStore'
 
 const BASE_URL = '/api'
 
-/**
- * Instancia base de Axios.
- * Interceptor de request: adjunta el Bearer token en cada llamada.
- * Interceptor de response: maneja 401 intentando refresh automático.
- */
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   timeout: 10_000,
 })
 
-// ── Adjunta el access token en cada request ─────────────────
+// ── Adjunta Bearer token ─────────────────────────────────────
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
+  if (token) config.headers.Authorization = `Bearer ${token}`
   return config
 })
 
-// ── Maneja 401: intenta refresh, si falla hace logout ───────
+// ── Refresh automático en 401 ────────────────────────────────
 let isRefreshing = false
 let pendingQueue: Array<{ resolve: (v: string) => void; reject: (e: unknown) => void }> = []
 
@@ -31,10 +24,8 @@ api.interceptors.response.use(
   (res) => res,
   async (error) => {
     const original = error.config
-
     if (error.response?.status === 401 && !original._retry) {
       original._retry = true
-
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           pendingQueue.push({ resolve, reject })
@@ -43,15 +34,9 @@ api.interceptors.response.use(
           return api(original)
         })
       }
-
       isRefreshing = true
       const refreshToken = useAuthStore.getState().refreshToken
-
-      if (!refreshToken) {
-        useAuthStore.getState().logout()
-        return Promise.reject(error)
-      }
-
+      if (!refreshToken) { useAuthStore.getState().logout(); return Promise.reject(error) }
       try {
         const { data } = await axios.post(`${BASE_URL}/auth/refresh`, { refreshToken })
         const newToken = data.data.accessToken
@@ -60,21 +45,18 @@ api.interceptors.response.use(
         pendingQueue = []
         original.headers.Authorization = `Bearer ${newToken}`
         return api(original)
-      } catch (refreshError) {
-        pendingQueue.forEach((p) => p.reject(refreshError))
+      } catch (e) {
+        pendingQueue.forEach((p) => p.reject(e))
         pendingQueue = []
         useAuthStore.getState().logout()
-        return Promise.reject(refreshError)
-      } finally {
-        isRefreshing = false
-      }
+        return Promise.reject(e)
+      } finally { isRefreshing = false }
     }
-
     return Promise.reject(error)
   }
 )
 
-// ── Helpers tipados ─────────────────────────────────────────
+// ── Services ─────────────────────────────────────────────────
 export const authService = {
   login:    (email: string, password: string) =>
     api.post('/auth/login', { email, password }),
@@ -96,4 +78,13 @@ export const userService = {
     api.post(`/users/${userId}/roles`, { roleName }),
   revokeRole:     (userId: string, roleName: string) =>
     api.delete(`/users/${userId}/roles/${roleName}`),
+}
+
+export const auditService = {
+  logs:   (page = 0, size = 20, action?: string) =>
+    api.get(`/audit/logs?page=${page}&size=${size}${action ? `&action=${action}` : ''}`),
+  recent: (limit = 10) =>
+    api.get(`/audit/recent?limit=${limit}`),
+  stats:  () =>
+    api.get('/audit/stats'),
 }

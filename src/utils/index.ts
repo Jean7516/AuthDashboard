@@ -35,12 +35,12 @@ export function initials(email: string): string {
 
 /** Color de avatar determinista por email */
 const COLORS = [
-  'bg-violet-500/20 text-violet-300',
-  'bg-blue-500/20 text-blue-300',
-  'bg-emerald-500/20 text-emerald-300',
-  'bg-amber-500/20 text-amber-300',
-  'bg-rose-500/20 text-rose-300',
-  'bg-cyan-500/20 text-cyan-300',
+  'bg-violet-500 text-violet-50',
+  'bg-blue-500 text-blue-50',
+  'bg-emerald-500 text-emerald-50',
+  'bg-amber-500 text-amber-50',
+  'bg-rose-500 text-rose-50',
+  'bg-cyan-500 text-cyan-50',
 ]
 export function avatarColor(email: string): string {
   const idx = email.charCodeAt(0) % COLORS.length

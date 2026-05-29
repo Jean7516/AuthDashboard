@@ -14,17 +14,16 @@ export default function Topbar() {
   const title = TITLES[pathname] ?? 'Dashboard'
 
   return (
-    <header className="h-14 bg-slate-900/80 backdrop-blur border-b border-slate-800 flex items-center px-6 gap-4 flex-shrink-0">
-      <h1 className="text-sm font-semibold text-slate-100">{title}</h1>
+    <header className="h-14 bg-white border-b border-slate-200 flex items-center px-6 gap-4 flex-shrink-0">
+      <h1 className="text-sm font-semibold text-slate-800">{title}</h1>
 
-      {/* Search */}
       <div className="relative flex-1 max-w-xs">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" aria-hidden />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden />
         <input
           type="search"
           placeholder="Buscar…"
-          className="w-full h-8 bg-slate-800 border border-slate-700 rounded-lg pl-8 pr-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500 transition-all"
-          aria-label="Buscar en el dashboard"
+          className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500 transition-all"
+          aria-label="Buscar"
         />
       </div>
 

@@ -10,69 +10,101 @@
   * { box-sizing: border-box; }
 
   body {
-    @apply bg-slate-950 text-slate-100 antialiased;
+    @apply bg-slate-50 text-slate-900 antialiased;
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
-  /* Scrollbar refinada */
-  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { @apply bg-transparent; }
-  ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded-full; }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-500; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-400; }
 }
 
 @layer components {
-  /* Input base */
   .input-base {
-    @apply w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2
-           text-sm text-slate-100 placeholder-slate-500
+    @apply w-full bg-white border border-slate-200 rounded-lg px-3 py-2
+           text-sm text-slate-900 placeholder-slate-400
            focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
            transition-all duration-150;
   }
 
-  /* Botón primario */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2
-           bg-brand-600 hover:bg-brand-500 active:bg-brand-700
+           bg-brand-600 hover:bg-brand-700 active:bg-brand-800
            text-white text-sm font-medium
            px-4 py-2 rounded-lg
            transition-all duration-150
-           focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-slate-950
+           focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-white
            disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  /* Botón ghost */
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2
-           bg-transparent hover:bg-slate-800 active:bg-slate-700
-           text-slate-400 hover:text-slate-100
+           bg-white hover:bg-slate-100 active:bg-slate-200
+           text-slate-600 hover:text-slate-900
            text-sm font-medium
-           px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-600
+           px-4 py-2 rounded-lg border border-slate-200 hover:border-slate-300
            transition-all duration-150
-           focus:outline-none focus:ring-2 focus:ring-slate-500;
+           focus:outline-none focus:ring-2 focus:ring-slate-300;
   }
 
-  /* Botón icono */
   .btn-icon {
     @apply inline-flex items-center justify-center
            w-8 h-8 rounded-lg
-           text-slate-400 hover:text-slate-100
-           bg-transparent hover:bg-slate-800
-           border border-transparent hover:border-slate-700
+           text-slate-500 hover:text-slate-900
+           bg-transparent hover:bg-slate-100
+           border border-transparent hover:border-slate-200
            transition-all duration-150;
   }
 
-  /* Card */
   .card {
-    @apply bg-slate-900 border border-slate-800 rounded-xl;
+    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
   }
 
-  /* Badge de rol */
-  .badge-superadmin { @apply text-xs px-2 py-0.5 rounded-md bg-violet-500/15 text-violet-300 font-medium; }
-  .badge-admin      { @apply text-xs px-2 py-0.5 rounded-md bg-blue-500/15   text-blue-300   font-medium; }
-  .badge-viewer     { @apply text-xs px-2 py-0.5 rounded-md bg-slate-500/20  text-slate-400  font-medium; }
+  .badge-superadmin { @apply text-xs px-2 py-0.5 rounded-md bg-violet-500 text-violet-50 font-medium; }
+  .badge-admin      { @apply text-xs px-2 py-0.5 rounded-md bg-blue-500   text-blue-50   font-medium; }
+  .badge-viewer     { @apply text-xs px-2 py-0.5 rounded-md bg-slate-500  text-slate-50  font-medium; }
 
-  /* Estado activo/inactivo */
-  .status-active   { @apply text-xs px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 font-medium; }
-  .status-inactive { @apply text-xs px-2 py-0.5 rounded-md bg-slate-500/20  text-slate-500  font-medium; }
+  .status-active   { @apply text-xs px-2 py-0.5 rounded-md bg-emerald-500 text-emerald-50 font-medium; }
+  .status-inactive { @apply text-xs px-2 py-0.5 rounded-md bg-slate-500   text-slate-50   font-medium; }
+}
+  /* Login */
+  .loginpanel{
+    border-radius: 28px;
+    box-shadow: 12px 12px 30px rgba(23, 162, 184, 0.13), 
+                -6px -6px 20px rgba(255, 255, 255, 0.85), 
+                0 2px 60px rgba(23, 162, 184, 0.10);
+    min-height: 540px;
+  }
+  .btn-submitlogin {
+  background: linear-gradient(135deg, #067080 0%, #0bbc87 60%, #09b67a 100%);
+  border-radius: 12px;
+  padding: 13px;
+  width: 100%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity .15s, transform .1s;
+  box-shadow: 0 4px 18px rgba(23, 162, 184, 0.35);
+  margin-top: 4px;
+}
+
+/* Equivalente a cuando isSubmitting es true */
+.btn-submitlogin:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Dashboard */
+.statscards{
+  color: #000000;
+  font-weight: 700;
+  font-size: 13px;
 }
